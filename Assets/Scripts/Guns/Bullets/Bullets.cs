@@ -1,27 +1,23 @@
-using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 
 public class Bullets : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _lifeTime;
     
-    private Rigidbody _rb;
+    private Rigidbody2D _rb;
     
-    private void Awake()
+    private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-    }
-    
-    private void FlyBullet()
-    {
-        _rb.velocity = transform.up * _speed * Time.fixedDeltaTime;
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.velocity = transform.up * _speed;
+        Invoke(nameof(Destroy), _lifeTime);
     }
 
-    private void FixedUpdate()
+    private void Destroy()
     {
-        FlyBullet();
+        Destroy(gameObject);
     }
 }
