@@ -5,7 +5,7 @@ using Zenject;
 public class MobileInput : MonoBehaviour, IInput
 {
     public event Action<Vector2> Move;
-    public event Action<bool> IsShootting;
+    public event Action IsShootting;
     public event Action<Vector2> ShootingJoy;
 
     [SerializeField] private Joystick _Joystick;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,15 +8,19 @@ public class MachineGuns : MonoBehaviour
     [SerializeField] private GameObject _bullet;
     [SerializeField] private GameObject _shootPoint;
     [SerializeField] private float _DelayTime;
+    [SerializeField] private int _ammo;
+    [SerializeField] private float _reloadDelay;
 
     private IInput _iInput;
-    private bool _isShooting = false;
+    private bool _canShoot = true;
+    private int _ammoCount;
     
     private void Awake()
     {
         _iInput = _input.GetComponent<IInput>();
+        _ammoCount = _ammo;
     }
-
+    
     private void OnEnable()
     {
         _iInput.IsShootting += IsShoottingPc;
@@ -28,11 +33,18 @@ public class MachineGuns : MonoBehaviour
         _iInput.ShootingJoy -= IsShoottingMobile;
     }
 
-    private void IsShoottingPc(bool _isShoot)
+    private void IsShoottingPc()
     {
-        if (_isShoot && !_isShooting)
+        if (_canShoot)
         {
-            StartCoroutine(ShootDelay(_DelayTime));
+            if (_ammo > 0)
+            {
+                StartCoroutine(ShootDelay(_DelayTime));
+            }
+            else
+            {
+                StartCoroutine(Reload(_reloadDelay));
+            }
         }
     }
 
@@ -40,15 +52,31 @@ public class MachineGuns : MonoBehaviour
     {
         if (_ShootVector != new Vector2(0f, 0f))
         {
-            StartCoroutine(ShootDelay(_DelayTime));
+            if (_ammo > 0)
+            {
+                StartCoroutine(ShootDelay(_DelayTime));
+            }
+            else
+            {
+                StartCoroutine(Reload(_reloadDelay));
+            }
         }
     }
 
-    private IEnumerator ShootDelay(float _DelayTime)
+    private IEnumerator ShootDelay(float delayTime)
     {
-        _isShooting = true;
+        _ammo--;
+        _canShoot = false;
         Instantiate(_bullet, _shootPoint.transform.position, transform.rotation);
-        yield return new WaitForSeconds(_DelayTime);
-        _isShooting = false;
+        yield return new WaitForSeconds(delayTime);
+        _canShoot = true;
+    }
+
+    private IEnumerator Reload(float reloadDelay)
+    {
+        _canShoot = false;
+        yield return new WaitForSeconds(reloadDelay);
+        _ammo = _ammoCount;
+        _canShoot = true;
     }
 }

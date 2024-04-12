@@ -84,7 +84,7 @@
                     "name": "",
                     "id": "c4ee55fc-fd33-468a-b0ae-bf3c364e507d",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Shooting",
