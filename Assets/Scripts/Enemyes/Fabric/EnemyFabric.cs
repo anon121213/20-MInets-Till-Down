@@ -23,10 +23,9 @@ public class EnemyFabric : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnInterval);
 
-            // Выберите случайную сторону (0 = верх, 1 = право, 2 = низ, 3 = лево)
             int side = Random.Range(0, 4);
 
-            Vector2 spawnPosition = Vector2.zero;
+            var spawnPosition = Vector2.zero;
 
             switch (side)
             {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -48,9 +47,9 @@ public class MachineGuns : MonoBehaviour
         }
     }
 
-    private void IsShoottingMobile(Vector2 _ShootVector)
+    private void IsShoottingMobile(Vector2 _shootVector)
     {
-        if (_ShootVector != new Vector2(0f, 0f))
+        if (_shootVector != new Vector2(0f, 0f))
         {
             if (_ammo > 0)
             {

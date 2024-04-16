@@ -21,7 +21,7 @@ public class Bullets : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D _collider)
     {
         _damageObject = _collider.gameObject.GetComponent<IDamageble>();
-        _damageObject.GetDamage(_damage);
+        _damageObject.TakeDamage(_damage);
         
         Destroy(gameObject);
     }
