@@ -6,8 +6,10 @@ public class EnemyFabric : MonoBehaviour
 {
     [SerializeField] private GameObject _sympleEnemyPrefab;
     [SerializeField] private float spawnInterval = 2.0f;
+    [SerializeField] private GameObject _enemys;
     
     [Inject] private GameObject _player;
+    [Inject] private DiContainer _diContainer;
     
     private Camera mainCamera;
     
@@ -55,7 +57,7 @@ public class EnemyFabric : MonoBehaviour
                     break;
             }
 
-            var go = Instantiate(_sympleEnemyPrefab, spawnPosition, Quaternion.identity);
+            var go = _diContainer.InstantiatePrefab(_sympleEnemyPrefab, spawnPosition, Quaternion.identity, _enemys.transform);
             var enemy = go.GetComponent<SimpleEnemy>();
             enemy.GetPlayer(_player);
         }

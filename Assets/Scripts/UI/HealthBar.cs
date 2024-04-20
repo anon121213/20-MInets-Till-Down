@@ -1,28 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 public class HealthBar: MonoBehaviour
 {
     [SerializeField] private SpriteRenderer[] _heartSprites = {};
-
-    public int _hp = 4;
-
+    
     private SimpleEnemy _simpleEnemy;
     private GameObject _player;
+    private int _hp;
         
     [Inject] public void GetPlayer(GameObject player)
     {
         _player = player;
     }
-
-    private void Start()
-    {
-        Debug.Log($"AfafaSF player: {_player}");
-    }
-
+    
     private void Update()
     {
-        Debug.Log(_hp);
+        _hp = _player.GetComponent<CaharacterStats>()._hp;
+        ShowHp();
+    }
+
+    private void ShowHp()
+    {
+        foreach (var element in _heartSprites)
+        {
+            element.gameObject.SetActive(false);
+        }
+        
+        _heartSprites[_hp].gameObject.SetActive(true);
     }
 }

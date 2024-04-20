@@ -4,27 +4,21 @@ using Zenject;
 public class EnemyHP : MonoBehaviour, IDamageble
 {
     [SerializeField] private int _takeDamage;
-    
+    [SerializeField] private float _pushForce;
+
     public int _hp = 100;
-
-    private HealthBar _healthBar;
-    private GameObject _player;
-
-    [Inject] private void GetHealthBar(HealthBar healthBar)
-    {
-        _healthBar = healthBar;
-    }
     
+    private GameObject _player;
+        
     [Inject] public void GetPlayer(GameObject player)
     {
         _player = player;
     }
-
+    
     private void Update()
     {
         if (_hp <= 0)
         {
-            
             Destroy(gameObject);
         }
     }
@@ -32,9 +26,8 @@ public class EnemyHP : MonoBehaviour, IDamageble
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.GetComponent<CharacterMove>())
         {
-            Debug.Log("saasf");
             GetDamage(_takeDamage);
         }
     }
@@ -46,6 +39,20 @@ public class EnemyHP : MonoBehaviour, IDamageble
 
     public void GetDamage(int _getDamage)
     {
-        _healthBar._hp--;
+        var _playerHp = _player.gameObject.GetComponent<CaharacterStats>()._hp;
+
+        if (_playerHp > 0)
+        {
+            var pushDirection = -(transform.position - _player.transform.position).normalized;
+            var _playerRb = _player.gameObject.GetComponent<Rigidbody2D>();
+            
+            _playerRb.AddForce(pushDirection * _pushForce * 1000);
+            
+            _player.gameObject.GetComponent<CaharacterStats>()._hp--;
+        }
+        else
+        {
+            Time.timeScale = 0;
+        }
     }
 }

@@ -147,9 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _takeDamage: 1
+  _pushForce: 10
   _hp: 100
-  _healthBar: {fileID: 0}
-  _player: {fileID: 0}
 --- !u!50 &4284386503879904125
 Rigidbody2D:
   serializedVersion: 4
