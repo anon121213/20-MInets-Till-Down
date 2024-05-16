@@ -24,13 +24,11 @@ public class Bullets : MonoBehaviour
     private Rigidbody2D _rb;
     private IDamageble _damageObject;
     private WinSystem _winSystem;
-    private GameObject _player;
     
     [Inject]
     private void Inject(WinSystem winSystem, GameObject player)
     {
         _winSystem = winSystem;
-        _player = player;
     }
     
     private void Start()
@@ -46,9 +44,9 @@ public class Bullets : MonoBehaviour
         {
             _damageObject.TakeDamage(_damage);
             _winSystem._damageCount += _damage;
+            Destroy(gameObject);
         }
-
-        if (collider.gameObject != _player)
+        else
         {
             Destroy(gameObject);
         }
