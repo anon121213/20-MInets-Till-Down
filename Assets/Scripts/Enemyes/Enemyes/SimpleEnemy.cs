@@ -12,14 +12,14 @@ public class SimpleEnemy: MonoBehaviour
         _player = player;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         MoveToPlayer();
     }
 
     private void MoveToPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.deltaTime);
 
         if (transform.position.x > _player.transform.position.x)
         {
