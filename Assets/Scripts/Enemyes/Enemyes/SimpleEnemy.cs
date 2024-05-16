@@ -20,5 +20,14 @@ public class SimpleEnemy: MonoBehaviour
     private void MoveToPlayer()
     {
         transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.fixedDeltaTime);
+
+        if (transform.position.x > _player.transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        }
+        else if (transform.position.x < _player.transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
     }
 }

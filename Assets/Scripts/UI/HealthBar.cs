@@ -16,7 +16,7 @@ public class HealthBar: MonoBehaviour
     
     private void Update()
     {
-        _hp = _player.GetComponent<CaharacterStats>()._hp;
+        _hp = _player.GetComponent<PlayerStats>().Hp;
         ShowHp();
     }
 

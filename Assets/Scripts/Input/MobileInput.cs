@@ -13,13 +13,13 @@ public class MobileInput : MonoBehaviour, IInput
     private void GetInputDirection()
     {
         var _direction = new Vector2(_Joystick.Horizontal, _Joystick.Vertical).normalized;
-        Move?.Invoke(_direction);
+        if (_direction != Vector2.zero) { Move?.Invoke(_direction); }
     }
 
     private void Shoot()
     {
         var _direction = new Vector2(-_ShootJoystick.Horizontal, _ShootJoystick.Vertical).normalized;
-        ShootingJoy?.Invoke(_direction);
+        if (_direction != Vector2.zero) { ShootingJoy?.Invoke(_direction); }
     }
     
     private void Update()
