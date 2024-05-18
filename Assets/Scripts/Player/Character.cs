@@ -5,6 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject _body;
+    public Joystick _MoveJoy;
+    public Joystick _ShootJoy;
+    
     
     private float _speed = 20f;
 

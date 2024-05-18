@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 public class MobileInput : MonoBehaviour, IInput
 {
@@ -9,6 +10,22 @@ public class MobileInput : MonoBehaviour, IInput
 
     [SerializeField] private Joystick _Joystick;
     [SerializeField] private Joystick _ShootJoystick;
+
+    private GameObject _player;
+    
+    [Inject]
+    private void Inject(GameObject player)
+    {
+        _player = player;
+    }
+
+    private void Awake()
+    {
+        _Joystick = _player.GetComponent<Character>()._MoveJoy;
+        _ShootJoystick = _player.GetComponent<Character>()._ShootJoy;
+        print(_Joystick);
+        print(_ShootJoystick);
+    }
 
     private void GetInputDirection()
     {

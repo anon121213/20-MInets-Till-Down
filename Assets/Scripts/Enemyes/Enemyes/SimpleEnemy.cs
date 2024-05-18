@@ -7,7 +7,7 @@ public class SimpleEnemy: MonoBehaviour
     
     private GameObject _player;
         
-    [Inject] public void GetPlayer(GameObject player)
+    [Inject] public void Inject(GameObject player)
     {
         _player = player;
     }
