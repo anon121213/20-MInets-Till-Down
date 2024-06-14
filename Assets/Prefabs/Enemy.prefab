@@ -147,9 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _takeDamage: 1
-  _pushForce: 10
+  _pushForce: 0.01
   _xp: {fileID: 6433375555561863363, guid: 27728d092ffb96742a26fe323346d975, type: 3}
   Hp: 100
+  maxSpeed: 10
+  drag: 2
 --- !u!50 &4284386503879904125
 Rigidbody2D:
   serializedVersion: 4
