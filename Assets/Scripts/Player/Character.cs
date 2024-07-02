@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
         _IInput = GetComponent<IInput>();
         _playerStats = GetComponent<PlayerStats>();
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = -1;
+        Application.targetFrameRate = 240;
     }
 
     private void Update()
