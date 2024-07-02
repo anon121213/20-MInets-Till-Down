@@ -33,7 +33,7 @@ public class WinSystem: MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
         _pauseButtonstRect = _pauseButtons.GetComponent<RectTransform>();
         _playScene = SceneManager.GetActiveScene().buildIndex;
     }
