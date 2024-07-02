@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             _player.GetComponent<MobileInput>().enabled = true;
+            _player.GetComponent<PCInput>().enabled = true;
             _mobileinputUi.SetActive(true);
         }
         else
