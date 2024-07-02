@@ -11,32 +11,32 @@ public class MobileInput : MonoBehaviour, IInput
     [SerializeField] private Joystick _Joystick;
     [SerializeField] private Joystick _ShootJoystick;
 
-    private GameObject _player;
-    
-    [Inject]
-    private void Inject(GameObject player)
-    {
-        _player = player;
-    }
-
-    private void Awake()
-    {
-        _Joystick = _player.GetComponent<Character>()._MoveJoy;
-        _ShootJoystick = _player.GetComponent<Character>()._ShootJoy;
-        print(_Joystick);
-        print(_ShootJoystick);
-    }
+    private Character _player;
 
     private void GetInputDirection()
     {
-        var _direction = new Vector2(_Joystick.Horizontal, _Joystick.Vertical).normalized;
-        if (_direction != Vector2.zero) { Move?.Invoke(_direction); }
+        if (_Joystick)
+        {
+            var _direction = new Vector2(_Joystick.Horizontal, _Joystick.Vertical).normalized;
+            if (_direction != Vector2.zero) { Move?.Invoke(_direction); }
+        }
+        else
+        {
+            throw new Exception("Move Joystick is Null");
+        }
     }
 
     private void Shoot()
     {
-        var _direction = new Vector2(-_ShootJoystick.Horizontal, _ShootJoystick.Vertical).normalized;
-        if (_direction != Vector2.zero) { ShootingJoy?.Invoke(_direction); }
+        if (_ShootJoystick)
+        {
+            var _direction = new Vector2(-_ShootJoystick.Horizontal, _ShootJoystick.Vertical).normalized;
+            if (_direction != Vector2.zero) { ShootingJoy?.Invoke(_direction); }
+        }
+        else
+        {
+            throw new Exception("Shoot Joystick is Null");
+        }
     }
     
     private void Update()

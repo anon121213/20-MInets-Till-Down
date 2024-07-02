@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -30,12 +31,12 @@ public class InputManager : MonoBehaviour
     {
         if (Application.isMobilePlatform)
         {
-            _player.AddComponent<MobileInput>();
+            _player.GetComponent<MobileInput>().enabled = true;
             _mobileinputUi.SetActive(true);
         }
         else
         {
-            _player.AddComponent<PCInput>();
+            _player.GetComponent<PCInput>().enabled = true;
             _mobileinputUi.SetActive(false);
         }
     }

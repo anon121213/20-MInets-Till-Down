@@ -5,32 +5,29 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField] private GameObject _body;
-    public Joystick _MoveJoy;
-    public Joystick _ShootJoy;
-    
     
     private float _speed = 20f;
-
-    public float Speed
-    {
-        get { return _speed; }
-        set { _speed = Mathf.Clamp(value, 0, float.MaxValue); }
-    }
     
     private Rigidbody2D _rb;
-    private IInput _IInput;
+    private IInput[] _IInput;
     private Animator _animator;
     private PlayerStats _playerStats;
     private bool _isDead = false;
     
     private const string speed = nameof(speed);
     private const string die = nameof(die);
+    
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = Mathf.Clamp(value, 0, float.MaxValue); }
+    }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = _body.GetComponent<Animator>();
-        _IInput = GetComponent<IInput>();
+        _IInput = GetComponents<IInput>();
         _playerStats = GetComponent<PlayerStats>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 240;
@@ -71,11 +68,13 @@ public class Character : MonoBehaviour
     
     private void OnEnable()
     {
-        _IInput.Move += Move;
+        _IInput[0].Move += Move;
+        _IInput[1].Move += Move;
     }
     
     private void OnDisable()
     {
-        _IInput.Move -= Move;
+        _IInput[0].Move -= Move;
+        _IInput[1].Move -= Move;
     }
 }
