@@ -42,7 +42,7 @@ public class Gun : MonoBehaviour
         set { _reloadDelay = Mathf.Clamp(value, 0, float.MaxValue); }
     }
     
-    private IInput _iInput;
+    private IInput[] _iInput;
     private bool _canShoot = true;
     private int _ammoCount;
     
@@ -50,7 +50,7 @@ public class Gun : MonoBehaviour
     
     private void Awake()
     {
-        _iInput = _player.GetComponent<IInput>();
+        _iInput = _player.GetComponents<IInput>();
         _ammoCount = Ammo;
     }
     
@@ -106,13 +106,17 @@ public class Gun : MonoBehaviour
     
     private void OnEnable()
     {
-        _iInput.IsShootting += IsShoottingPc;
-        _iInput.ShootingJoy += IsShoottingMobile;
+        _iInput[0].IsShootting += IsShoottingPc;
+        _iInput[0].ShootingJoy += IsShoottingMobile;
+        _iInput[1].IsShootting += IsShoottingPc;
+        _iInput[1].ShootingJoy += IsShoottingMobile;
     }
     
     private void OnDisable()
     {
-        _iInput.IsShootting -= IsShoottingPc;
-        _iInput.ShootingJoy -= IsShoottingMobile;
+        _iInput[0].IsShootting -= IsShoottingPc;
+        _iInput[0].ShootingJoy -= IsShoottingMobile;
+        _iInput[1].IsShootting -= IsShoottingPc;
+        _iInput[1].ShootingJoy -= IsShoottingMobile;
     }
 }
