@@ -1,10 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _mobileinputUi;
+    [SerializeField] private GameObject _aim;
     
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             _player.GetComponent<MobileInput>().enabled = true;
-            _player.GetComponent<PCInput>().enabled = true;
+            _aim.gameObject.SetActive(false);
             _mobileinputUi.SetActive(true);
         }
         else
