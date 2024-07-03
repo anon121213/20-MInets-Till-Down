@@ -4,6 +4,7 @@ using Zenject;
 public class SimpleEnemy: MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private GameObject _enemySprite;
     
     private GameObject _player;
         
@@ -23,11 +24,11 @@ public class SimpleEnemy: MonoBehaviour
 
         if (transform.position.x > _player.transform.position.x)
         {
-            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            _enemySprite.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
         else if (transform.position.x < _player.transform.position.x)
         {
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            _enemySprite.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
 }

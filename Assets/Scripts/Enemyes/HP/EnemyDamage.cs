@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;

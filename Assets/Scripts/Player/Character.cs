@@ -8,6 +8,9 @@ public class Character : MonoBehaviour
     public event Action<int> DamageTaken;
     
     [SerializeField] private GameObject _body;
+    [SerializeField] private float _cameraShakeAmplitude;
+    [SerializeField] private float _cameraShakeFrequency;
+    [SerializeField] private float _cameraShakeDuration;
     
     private float _speed = 20f;
     private bool _isDead = false;
@@ -59,11 +62,14 @@ public class Character : MonoBehaviour
     {
         if (_playerStats.Hp > 1 && !_isDead)
         {
+            CameraShake.Instanse.ShakeCamera(_cameraShakeAmplitude, _cameraShakeFrequency, _cameraShakeDuration);
             _playerStats.Hp -= Damage;
             DamageTaken?.Invoke(Damage);
         }
         else
         {
+            CameraShake.Instanse.ShakeCamera(_cameraShakeAmplitude, _cameraShakeFrequency, _cameraShakeDuration);
+            
             if (!_isDead)
             {
                 _isDead = true;
