@@ -6,13 +6,13 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public event Action<int> DamageTaken;
-    
+
     [SerializeField] private GameObject _body;
     [SerializeField] private float _cameraShakeAmplitude;
     [SerializeField] private float _cameraShakeFrequency;
     [SerializeField] private float _cameraShakeDuration;
+    [SerializeField] private float _speed = 20f;
     
-    private float _speed = 20f;
     private bool _isDead = false;
     
     private Rigidbody2D _rb;

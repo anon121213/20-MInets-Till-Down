@@ -11,15 +11,15 @@ public class XPBar: MonoBehaviour
 
     private void Update()
     {
-        HealthBarCalculate();
+        XpBarCalculate();
     }
 
-    private void HealthBarCalculate()
+    private void XpBarCalculate()
     {
         if (_playerStats.Xp >= _playerStats.XpForNewLvl)
         {
             _playerStats.Xp = 0;
-            _playerStats.XpForNewLvl += 20;
+            _playerStats.XpForNewLvl += 10;
             _playerStats.Lvl += 1;
             _upgradePanel.OpenPanel();
         }

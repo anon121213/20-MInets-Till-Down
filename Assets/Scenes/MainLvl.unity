@@ -1936,7 +1936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &471712768
 Transform:
   m_ObjectHideFlags: 0
@@ -3244,6 +3244,7 @@ MonoBehaviour:
   _cameraShakeAmplitude: 20
   _cameraShakeFrequency: 1
   _cameraShakeDuration: 0.1
+  _speed: 12.5
 --- !u!114 &652333012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7367,7 +7368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1665439053
 RectTransform:
   m_ObjectHideFlags: 0

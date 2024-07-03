@@ -48,7 +48,10 @@ public class Bullets : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            if (!collider.gameObject.GetComponent<Xp>())
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
