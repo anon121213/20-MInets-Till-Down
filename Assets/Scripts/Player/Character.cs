@@ -1,19 +1,23 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
 public class Character : MonoBehaviour
 {
+    public event Action<int> DamageTaken;
+    
     [SerializeField] private GameObject _body;
     
     private float _speed = 20f;
+    private bool _isDead = false;
     
     private Rigidbody2D _rb;
     private IInput[] _IInput;
     private Animator _animator;
     private PlayerStats _playerStats;
-    private bool _isDead = false;
-    
+    private IDamageble _damagebleImplementation;
+
     private const string speed = nameof(speed);
     private const string die = nameof(die);
     
@@ -31,21 +35,6 @@ public class Character : MonoBehaviour
         _playerStats = GetComponent<PlayerStats>();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 240;
-    }
-
-    private void Update()
-    {
-        Die();
-    }
-
-    private void Die()
-    {
-        if (_playerStats.Hp <= 0 && !_isDead)
-        {
-            _isDead = true;
-            _rb.bodyType = RigidbodyType2D.Static;
-            _animator.SetTrigger(die);
-        }
     }
     
     private void Move(Vector2 direction)
@@ -66,6 +55,25 @@ public class Character : MonoBehaviour
         }
     }
     
+    public void GetDamage(int Damage)
+    {
+        if (_playerStats.Hp > 1 && !_isDead)
+        {
+            _playerStats.Hp -= Damage;
+            DamageTaken?.Invoke(Damage);
+        }
+        else
+        {
+            if (!_isDead)
+            {
+                _isDead = true;
+                _rb.bodyType = RigidbodyType2D.Static;
+                _animator.SetTrigger(die);
+                DamageTaken?.Invoke(Damage);
+            }
+        }
+    }
+    
     private void OnEnable()
     {
         _IInput[0].Move += Move;
@@ -78,3 +86,4 @@ public class Character : MonoBehaviour
         _IInput[1].Move -= Move;
     }
 }
+

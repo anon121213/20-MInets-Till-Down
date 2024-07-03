@@ -65,7 +65,7 @@ public class EnemyFabric : MonoBehaviour
             var enemy = go.GetComponent<SimpleEnemy>();
             var enemyDamage = go.GetComponent<EnemyDamage>();
             
-            enemyDamage._emptyXp = _emptyXP;
+            enemyDamage.EmptyXp = _emptyXP;
             enemy.Inject(_player);
         }
     }

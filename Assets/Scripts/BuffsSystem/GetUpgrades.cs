@@ -55,7 +55,15 @@ public class GetUpgrades : MonoBehaviour
                 break;
             
             case UpgradesType.hp:
-                _playerStats.Hp += 1;
+                if (_playerStats.Hp < _playerStats.MaxHp)
+                {
+                    _character.GetDamage(-1);
+                }
+                else
+                {
+                    _playerStats.MaxHp++;
+                    _character.GetDamage(-1);
+                }
                 _upgradePanel.ClousePanel();
                 break;
             

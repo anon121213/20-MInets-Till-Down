@@ -42,7 +42,7 @@ public class Bullets : MonoBehaviour
     {
         if (collider.gameObject.TryGetComponent<IDamageble>(out IDamageble _damageObject))
         {
-            _damageObject.TakeDamage(_damage);
+            _damageObject.GetDamageToEnemy(_damage);
             _winSystem._damageCount += _damage;
             Destroy(gameObject);
         }

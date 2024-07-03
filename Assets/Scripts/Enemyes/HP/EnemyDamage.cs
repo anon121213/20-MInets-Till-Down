@@ -1,22 +1,30 @@
-using System;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
 public class EnemyDamage : MonoBehaviour, IDamageble
 {
+    [SerializeField] private int _hp = 100;
+    [SerializeField] private int _getDamage;
     [SerializeField] private int _takeDamage;
     [SerializeField] private float _pushForce;
+    [SerializeField] private float _drag = 1.5f;
     [SerializeField] private GameObject _xp;
-    [SerializeField] private int Hp = 100;
-    [SerializeField] private float drag = 1.5f;
     
-    [NonSerialized] public Transform _emptyXp;
-    
+    private Transform _emptyXp;
     private GameObject _player;
     private WinSystem _winSystem;
     private Rigidbody2D _rb;
     
+    public Transform EmptyXp
+    {
+        get => _emptyXp;
+        set
+        {
+            if (value is Transform) _emptyXp = value;
+        } 
+    }
+
     [Inject] private DiContainer _diContainer;
     [Inject] public void GetPlayer(GameObject player, WinSystem winSystem)
     {
@@ -33,35 +41,30 @@ public class EnemyDamage : MonoBehaviour, IDamageble
     {
         if (collision.gameObject.GetComponent<Character>())
         {
-            GetDamage(_takeDamage);
+            TakeDamageToPlayer();
         }
     }
 
-    public void TakeDamage(int _damage)
+    public void GetDamageToEnemy(int _damage)
     {
-        Hp -= _damage;
+        _hp -= _damage;
         
-        if (Hp <= 0)
+        if (_hp <= 0)
         {
             _diContainer.InstantiatePrefab(_xp, transform.position, quaternion.identity, _emptyXp);
             _winSystem._kills += 1;
             Destroy(gameObject);
         }
     }
-
-    public void GetDamage(int _getDamage)
+    
+    private void TakeDamageToPlayer()
     {
-        var _playerHp = _player.gameObject.GetComponent<PlayerStats>().Hp;
-
-        if (_playerHp > 0)
-        {
-            var pushDirection = -(transform.position - _player.transform.position).normalized;
+        var pushDirection = -(transform.position - _player.transform.position).normalized;
             
-            _rb.AddForce(-pushDirection * _pushForce * 1000, ForceMode2D.Impulse);
-            _rb.drag = drag;
-
-            var playerHp = _player.gameObject.GetComponent<PlayerStats>();
-            playerHp.Hp -= 1;
-        }
+        _rb.AddForce(-pushDirection * _pushForce * 1000, ForceMode2D.Impulse);
+        _rb.drag = _drag;
+        
+        var Character = _player.GetComponent<Character>();
+        Character.GetDamage(_takeDamage);
     }
 }
