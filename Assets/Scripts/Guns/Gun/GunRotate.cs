@@ -13,7 +13,7 @@ public class GunRotate : MonoBehaviour
 
     private void Rotate()
     {
-        if (DeviceCheck.DeviseChecker())
+        if (Application.isMobilePlatform)
         {
             _IInput.ShootingJoy += GunRotaiterMobile;
         }
